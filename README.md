@@ -1,9 +1,6 @@
 # Mee::Nginx::Parser
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/mee/nginx/parser`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
-
+Parser for reading Nginx configuration files
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -22,7 +19,9 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+`MEE::Nginx::Parser.parse( contents_of_config_file )`
+
+This will return a tree structure contianing configuration blocks and statements.
 
 ## Development
 
@@ -32,7 +31,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/mee-nginx-parser.
+Bug reports and pull requests are welcome on GitHub at https://github.com/meschbach/mee-nginx-parser.
 
 
 ## License
