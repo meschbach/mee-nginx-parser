@@ -72,7 +72,7 @@ module MEE
 				def path_exists?( path )
 					name = path.shift
 					if path.empty?
-						statements_named( path ).empty?
+						!statements_named( name ).empty?
 					else
 						blocks_named( name ).any? do |node|
 							node.path_exists?( Array.new( path ) )

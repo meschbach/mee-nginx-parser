@@ -37,6 +37,58 @@ server {
 	}
 }
 })
-		expect( commands.path_exists?([ "server", "location /", "max_request_size 128M" ]) ).to be_truthy
+		expect( commands.path_exists?([ "server", "location /", "max_request_size 128M" ]) ).to be true
+	end
+
+	it 'reports non-existent command does not exist' do
+		commands = MEE::Nginx::Parser.parse( %{
+      upstream test-https {
+      	 server localhost:9999; 
+      }
+      
+      
+      server {
+      	listen *:443 ssl http2;
+      	server_name https.etcd2.cnp.invalid;
+      
+      	include tls_config;
+      	ssl_certificate /private/certificate;
+      	ssl_certificate_key /private/key;
+      
+      	location / {
+      		proxy_pass http://test-https;
+      		include proxy_params;
+      	}
+      
+      	
+      }
+} )
+		expect( commands.path_exists?([ "server", "key /rsc/https/example.key" ]) ).to be false
+	end
+
+	it 'reports existent command does exist' do
+		commands = MEE::Nginx::Parser.parse( %{
+      upstream test-https {
+      	 server localhost:9999; 
+      }
+      
+      
+      server {
+      	listen *:443 ssl http2;
+      	server_name https.etcd2.cnp.invalid;
+      
+      	include tls_config;
+      	ssl_certificate /private/certificate;
+      	ssl_certificate_key /private/key;
+      
+      	location / {
+      		proxy_pass http://test-https;
+      		include proxy_params;
+      	}
+      
+      	
+      }
+} )
+		expect( commands.path_exists?([ "server", "ssl_certificate /private/certificate" ]) ).to be true
 	end
 end
